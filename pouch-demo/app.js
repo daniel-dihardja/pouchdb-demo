@@ -7,7 +7,7 @@
 
 		.config(['$flipPouchProvider', function($flipPouchProvider) {
 
-			// Bsp. konfiguration des flipPouch Providers
+			// Bsp. konfiguration des $flipPouchProviders
 			$flipPouchProvider.setRemoteCouchDB('http://192.168.99.100:5984/flip');
 			$flipPouchProvider.setUsername('admin');
 			$flipPouchProvider.setPassword('admin123');
