@@ -8,3 +8,7 @@
 ##Dependencies
 PouchDB
 PouchDB Authentication
+
+    bower install pouchdb
+    bower install pouchdb-authentication
+    
