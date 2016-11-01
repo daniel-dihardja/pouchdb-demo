@@ -39,6 +39,7 @@
 		this.$get = ['$q', function($q) {
 			_this.$q = $q;
 			return {
+				db: _dbLocal,
 				sync: sync,
 				wissensspeicher: {
 					themeByDotId: wsThemeByDotId
@@ -69,9 +70,12 @@
 					return;
 				}
 
+				// create a new local db instance here
 				_dbLocal = new PouchDB(_dbName);
 
+				// replicate the remote couchdb
 				PouchDB.replicate(_remoteCouchDBUrl, _dbName)
+
 					.on('complete', function(info) {
 						defer.resolve(info);
 					})
@@ -88,7 +92,12 @@
 		}
 
 		function wsThemeByDotId(dotId) {
-			return _dbLocal.query('WSThema/byDotId', {key: dotId})
+			var defer = _this.$q.defer();
+			_dbLocal.query('WSThema/byDotId', {key: dotId})
+				.then(function(res) {
+					defer.resolve(res.rows[0].value);
+				});
+			return defer.promise;
 		}
 	}
 })();
