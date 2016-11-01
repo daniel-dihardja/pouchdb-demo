@@ -10,9 +10,7 @@
 
 		var _this = this;
 
-		var _dbRemote;
 		var _dbLocal;
-
 		var _remoteCouchDBUrl;
 		var _username;
 		var _password;
@@ -66,8 +64,8 @@
 				}
 			};
 
-			_dbRemote = new PouchDB(_remoteCouchDBUrl, {skipSetup: true});
-			_dbRemote.login(_username, _password, ajaxOptions, function(err, res) {
+			var remoteCouch = new PouchDB(_remoteCouchDBUrl, {skipSetup: true});
+			remoteCouch.login(_username, _password, ajaxOptions, function(err, res) {
 
 				if(err) {
 					defer.reject(err);
