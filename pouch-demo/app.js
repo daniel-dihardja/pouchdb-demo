@@ -16,14 +16,14 @@
 
 		.controller('appController', ['$scope', '$flipPouch', function($scope, $flipPouch) {
 
-			// Bsp. zum syncen von
+			// Syncen mit der remote CouchDB
 			$scope.sync = function() {
 				$flipPouch.sync().then(function() {
 					console.log('pouchdb synced');
 				});
 			};
 
-			// Bsp. Daten eines Thema ausgeben
+			// Daten eines Themas ausgeben
 			$scope.showThemaByDotId = function() {
 				var dotId = 'VB6';
 				$flipPouch.wissensspeicher.themeByDotId(dotId).then(function(res) {

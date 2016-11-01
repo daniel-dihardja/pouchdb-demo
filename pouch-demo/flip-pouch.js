@@ -5,9 +5,7 @@
 
 	angular.module('flip-pouch', [])
 		.provider('$flipPouch', flipPouch);
-
-	flipPouch.$inject = [];
-
+	
 	function flipPouch() {
 
 		var _this = this;
