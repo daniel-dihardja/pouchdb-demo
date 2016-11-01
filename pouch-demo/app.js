@@ -26,7 +26,7 @@
 			// Daten eines Themas ausgeben
 			$scope.showThemaByDotId = function() {
 				var dotId = 'VB6';
-				$flipPouch.wissensspeicher.themeByDotId(dotId).then(function(res) {
+				$flipPouch.ws.themeByDotId(dotId).then(function(res) {
 					console.log(res);
 				})
 			}

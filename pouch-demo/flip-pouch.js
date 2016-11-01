@@ -5,7 +5,7 @@
 
 	angular.module('flip-pouch', [])
 		.provider('$flipPouch', flipPouch);
-	
+
 	function flipPouch() {
 
 		var _this = this;
@@ -35,11 +35,17 @@
 		};
 
 		this.$get = ['$q', function($q) {
+
 			_this.$q = $q;
+
+			// create a singleton local db instance
+			if(! _dbLocal) _dbLocal = new PouchDB(_dbName);
+
+			// return a set of util APIs
 			return {
 				db: _dbLocal,
 				sync: sync,
-				wissensspeicher: {
+				ws: {
 					themeByDotId: wsThemeByDotId
 				}
 			}
@@ -68,9 +74,6 @@
 					return;
 				}
 
-				// create a new local db instance here
-				_dbLocal = new PouchDB(_dbName);
-
 				// replicate the remote couchdb
 				PouchDB.replicate(_remoteCouchDBUrl, _dbName)
 
@@ -91,6 +94,7 @@
 
 		function wsThemeByDotId(dotId) {
 			var defer = _this.$q.defer();
+			if(! _dbLocal) defer.reject(new Error('no local db found'));
 			_dbLocal.query('WSThema/byDotId', {key: dotId})
 				.then(function(res) {
 					defer.resolve(res.rows[0].value);
